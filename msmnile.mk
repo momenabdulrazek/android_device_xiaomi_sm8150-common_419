@@ -308,6 +308,9 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor
 
 # RIL
+PRODUCT_PACKAGES += \
+    CarrierConfigOverlay
+
 ifneq ($(TARGET_IS_TABLET),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
