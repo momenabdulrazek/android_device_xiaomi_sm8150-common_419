@@ -52,3 +52,10 @@ persist.vendor.ssr.restart_level=ALL_ENABLE
 
 # Zygote
 persist.device_config.runtime_native.usap_pool_enabled=true
+
+# Device Information for Project Infinity X
+ro.infinity.soc=Snapdragon 860
+ro.infinity.battery=5160 mAh
+ro.infinity.display=2400 x 1080, 120 Hz
+ro.infinity.camera=48MP + 8MP + 2MP + 2MP
+ro.product.marketname=POCO X3 PRO
