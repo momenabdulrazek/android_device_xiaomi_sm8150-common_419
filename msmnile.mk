@@ -140,6 +140,14 @@ PRODUCT_PACKAGES += \
 
 $(call inherit-product-if-exists, vendor/xiaomi/miuicamera/config.mk)
 
+PRODUCT_PACKAGES += \
+    libcamera2ndk_vendor \
+    libdng_sdk.vendor \
+    libgui_vendor \
+    libstdc++_vendor \
+    vendor.qti.hardware.camera.device@1.0.vendor \
+    vendor.qti.hardware.camera.postproc@1.0.vendor
+
 # Configstore
 PRODUCT_PACKAGES += \
     disable_configstore
