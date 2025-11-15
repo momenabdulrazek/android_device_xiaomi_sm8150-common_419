@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-2024 The LineageOS Project
+# Copyright (C) The Android Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -133,10 +133,29 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
+# Blur
+TARGET_ENABLE_BLUR := true
+
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64
+
+$(call inherit-product-if-exists, vendor/xiaomi/miuicamera/config.mk)
+
+$(call soong_config_set,camera,override_format_from_reserved,true)
+$(call soong_config_set,camera,package_name,com.xiaomi.sessionparams.clientName)
+
+PRODUCT_PACKAGES += \
+    libcamera2ndk_vendor \
+    libdng_sdk.vendor \
+    libgui_vendor \
+    libstdc++_vendor \
+    vendor.qti.hardware.camera.device@1.0.vendor \
+    vendor.qti.hardware.camera.postproc@1.0.vendor
+
+PRODUCT_PACKAGES += \
+   libstdc++_vendor
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -200,6 +219,23 @@ PRODUCT_PACKAGES += \
     qcom.fmradio
 endif
 
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0.vendor
+
+# GPS
+PRODUCT_PACKAGES += \
+     android.hardware.gnss@2.1-impl-qti \
+     android.hardware.gnss@2.1-service-qti
+
+PRODUCT_PACKAGES += \
+     liblocation_api \
+     libgps.utils \
+     libbatching \
+     libgeofencing \
+     libloc_core \
+     libgnss
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.qti \
@@ -243,6 +279,10 @@ PRODUCT_PACKAGES += \
     media_codecs_c2.xml \
     media_codecs_performance_c2.xml
 
+# Network
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc-service.nxp \
@@ -258,16 +298,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_nfc/com.android.nfc_extras.xml
 
 # Overlays
-PRODUCT_PACKAGES += \
-    CarrierConfigOverlayCommon \
-    FrameworkResOverlayCommon \
-    LineageDialerOverlayCommon \
-    LineageSDKOverlayCommon \
-    SettingsOverlayCommon \
-    SettingsProviderOverlayCommon \
-    SystemUIOverlayCommon \
-    TelephonyOverlayCommon \
-    WifiResourcesOverlayCommon
+#PRODUCT_PACKAGES += \
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -290,6 +321,11 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/qcom-caf/common/libqti-perfd-client \
     vendor/qcom/opensource/usb/etc
+
+# Protobuf
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-3.9.1-vendorcompat \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat
 
 # Public libraries
 PRODUCT_COPY_FILES += \
@@ -349,6 +385,7 @@ PRODUCT_PACKAGES += \
     ims_ext_common.xml \
     qti-telephony-hidl-wrapper \
     qti_telephony_hidl_wrapper.xml \
+    qti-telephony-hidl-wrapper-prd \
     qti-telephony-utils \
     qti_telephony_utils.xml \
     telephony-ext \
@@ -363,6 +400,9 @@ PRODUCT_PACKAGES += \
     android.hardware.usb-service.qti \
     android.hardware.usb.gadget-service.qti
 
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.3-service.dual_role_usb
+
 # Vendor service manager
 PRODUCT_PACKAGES += \
     vndservicemanager
@@ -376,6 +416,9 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
+    vendor.qti.hardware.wifi.hostapd@1.2.vendor \
+    vendor.qti.hardware.wifi.supplicant@2.2.vendor \
+    libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
 

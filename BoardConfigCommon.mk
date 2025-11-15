@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) The Android Open Source Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -147,7 +147,7 @@ BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := $(ALL_PARTITIONS)
 
 # Partitions - reserved size
--include vendor/lineage/config/BoardConfigReservedSize.mk
+-include vendor/halcyon/config/BoardConfigReservedSize.mk
 
 # Platform
 BOARD_VENDOR := xiaomi
@@ -233,7 +233,7 @@ endif
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    vendor/halcyon/config/device_framework_matrix.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 ifeq ($(TARGET_HAS_FM),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest_fm.xml
