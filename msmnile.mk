@@ -137,25 +137,32 @@ PRODUCT_COPY_FILES += \
 TARGET_ENABLE_BLUR := true
 
 # Camera
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service_64
-
 $(call inherit-product-if-exists, vendor/xiaomi/miuicamera/config.mk)
 
 $(call soong_config_set,camera,override_format_from_reserved,true)
 $(call soong_config_set,camera,package_name,com.xiaomi.sessionparams.clientName)
 
 PRODUCT_PACKAGES += \
+    android.frameworks.sensorservice@1.0.vendor \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service_64 \
     libcamera2ndk_vendor \
     libdng_sdk.vendor \
-    libgui_vendor \
-    libstdc++_vendor \
+    libgui.vendor \
+    libpng.vendor \
+    libxml2 \
     vendor.qti.hardware.camera.device@1.0.vendor \
     vendor.qti.hardware.camera.postproc@1.0.vendor
 
 PRODUCT_PACKAGES += \
+    libpiex_shim
+
+PRODUCT_PACKAGES += \
    libstdc++_vendor
+
+# Charger
+PRODUCT_PACKAGES += \
+    libsuspend
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -198,7 +205,10 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 ifneq ($(TARGET_IS_TABLET),true)
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint-service.xiaomi
+    android.hardware.biometrics.fingerprint-service.xiaomi \
+    vendor.xiaomi.hardware.fingerprintextension@1.0.vendor \
+    libkeymaster_messages.vendor \
+    vendor.xiaomi.hardware.fx.tunnel@1.0.vendor
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
@@ -224,17 +234,12 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
 # GPS
+ifneq ($(TARGET_IS_TABLET),true)
 PRODUCT_PACKAGES += \
-     android.hardware.gnss@2.1-impl-qti \
-     android.hardware.gnss@2.1-service-qti
-
-PRODUCT_PACKAGES += \
-     liblocation_api \
-     libgps.utils \
-     libbatching \
-     libgeofencing \
-     libloc_core \
-     libgnss
+    android.hardware.gnss@1.1.vendor \
+    android.hardware.gnss@2.1.vendor \
+    android.hardware.power@1.2.vendor
+endif
 
 # Health
 PRODUCT_PACKAGES += \
@@ -285,8 +290,11 @@ PRODUCT_PACKAGES += \
 
 # NFC
 PRODUCT_PACKAGES += \
-    android.hardware.nfc-service.nxp \
+    android.hardware.nfc@1.2-service \
+    android.hardware.nfc@1.2.vendor \
     com.android.nfc_extras \
+    libchrome.vendor \
+    SecureElement \
     Tag
 
 PRODUCT_COPY_FILES += \
@@ -296,11 +304,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_nfc/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.se.omapi.uicc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_nfc/android.hardware.se.omapi.uicc.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_nfc/com.android.nfc_extras.xml
-
-# Overlays
-#PRODUCT_PACKAGES += \
-
-PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
