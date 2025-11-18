@@ -200,6 +200,18 @@ PRODUCT_PACKAGES += \
     qcom.fmradio
 endif
 
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0.vendor
+
+# GPS
+ifneq ($(TARGET_IS_TABLET),true)
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.1.vendor \
+    android.hardware.gnss@2.1.vendor \
+    android.hardware.power@1.2.vendor
+endif
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.qti \
@@ -242,6 +254,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     media_codecs_c2.xml \
     media_codecs_performance_c2.xml
+
+# Net
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor
+
+# Neural networks
+PRODUCT_PACKAGES += \
+    android.hardware.neuralnetworks@1.3.vendor
 
 # NFC
 PRODUCT_PACKAGES += \
