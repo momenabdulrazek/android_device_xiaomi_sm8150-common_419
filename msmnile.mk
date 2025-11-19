@@ -261,19 +261,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_nfc/com.android.nfc_extras.xml
 
 # Overlays
-PRODUCT_PACKAGES += \
-    CarrierConfigOverlayCommon \
-    FrameworkResOverlayCommon \
-    LineageDialerOverlayCommon \
-    LineageSDKOverlayCommon \
-    LineageSettingsOverlayCommon \
-    SettingsOverlayCommon \
-    SettingsProviderOverlayCommon \
-    SystemUIOverlayCommon \
-    TelephonyOverlayCommon \
-    WifiResourcesOverlayCommon
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -389,6 +382,7 @@ PRODUCT_PACKAGES += \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
     NcmTetheringOverlay \
+    WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf
 
