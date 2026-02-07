@@ -274,6 +274,7 @@ PRODUCT_PACKAGES += \
     WifiResourcesOverlayCommon
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -392,6 +393,7 @@ PRODUCT_PACKAGES += \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
     NcmTetheringOverlay \
+    WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf
 
